@@ -38,4 +38,3 @@ func NewCppSource(name, ns string) *Source {
 		[]*File{},
 	}
 }
-

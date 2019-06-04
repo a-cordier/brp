@@ -17,12 +17,12 @@ package cmd
 import (
 	"fmt"
 	"github.com/a-cordier/brp/langs"
+	"github.com/spf13/cobra"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 	"text/template"
-	"github.com/spf13/cobra"
 )
 
 // generateCmd represents the generate command
