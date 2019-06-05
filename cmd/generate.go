@@ -15,25 +15,36 @@
 package cmd
 
 import (
+	"errors"
 	"fmt"
-	"github.com/a-cordier/brp/langs"
-	"github.com/spf13/cobra"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
 	"text/template"
+
+	"github.com/a-cordier/brp/langs"
+	"github.com/spf13/cobra"
 )
 
 // generateCmd represents the generate command
 var generateCmd = &cobra.Command{
-	Use:   "generate",
-	Short: "Generate a binary resources source file",
+	Short: "Generate a binary resources source file from a resource folder",
 	Long: `
-	TODO: Write command description
+	Generate a binary resources source file from a resource folder
 	`,
+	Use: "generate [FOLDER]",
+	Args: func(cmd *cobra.Command, args []string) error {
+		if len(args) < 1 {
+			return errors.New(errorF("Missing resource folder argument"))
+		}
+		if len(args) > 1 {
+			return errors.New(errorF("Too many arguments"))
+		}
+		return nil
+	},
 	RunE: func(cmd *cobra.Command, args []string) error {
-		dir, _ := cmd.Flags().GetString("dir")
+		dir := args[0]
 		ns, err := dirToNS(dir)
 
 		if err != nil {
@@ -63,14 +74,9 @@ var (
 func init() {
 	rootCmd.AddCommand(generateCmd)
 
-	generateCmd.Flags().StringVarP(&languages, "lang", "l", "cpp", "A destination language")
-	generateCmd.Flags().StringVarP(&folder, "dir", "d", "", "Your resource directory")
-	generateCmd.Flags().StringVarP(&output, "output", "o", folder, "Output file without extension")
-	generateCmd.Flags().StringVarP(&ns, "ns", "n", folder, "Namespace to access your resources")
-
-	if err := generateCmd.MarkFlagRequired("dir"); err != nil {
-		panic(err)
-	}
+	generateCmd.Flags().StringVarP(&languages, "lang", "l", "cpp", "set destination language")
+	generateCmd.Flags().StringVarP(&output, "output", "o", folder, "set output file name")
+	generateCmd.Flags().StringVarP(&ns, "ns", "n", folder, "set namespace to access resources")
 }
 
 func generate(dir, lang, output, ns string) error {
@@ -161,4 +167,8 @@ func min(x, y int) int {
 		return x
 	}
 	return y
+}
+
+func errorF(msg string) string {
+	return fmt.Sprintln(msg)
 }

@@ -50,9 +50,7 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
-
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "c", "config file (default is $HOME/.brp.yaml)")
-
 }
 
 // initConfig reads in config file and ENV variables if set.
