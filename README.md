@@ -26,7 +26,9 @@ go build -o brp main.go
 
 ## Package your files
 
+```sh
 brp generate <resource_directory> -o resources.h -l cpp -n resources
+```
 
   - Ommiting the -o flag will result in writing to stdout
   - Ommiting the -l flag will result in using cpp language
