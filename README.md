@@ -41,7 +41,7 @@ brp generate <resource_directory> -o resources.h -l cpp -n resources
   - Ommiting the -l flag will result in using cpp language
   - Ommiting the -n flag will result in using the <resource_directory> name converted to legal PascalCase (no leading numeric - no special character) as a namespace
 
-### Example
+### C++
 
 Assuming the following resource directory:
 
@@ -94,4 +94,71 @@ Resources being accessed the following way
 #include "resources.h"
 
 auto data = resources::get("svg/play.svg")
+```
+
+### golang
+
+Assuming the following resource directory:
+
+```
+resources
+└── svg
+    ├── next.svg
+    ├── pause.svg
+    ├── play.svg
+    ├── previous.svg
+    └── stop.svg
+```
+
+Running
+
+```sh
+brp generate resources -o resources.go -n resources -l go
+```
+
+Will generate the following `resources.go` file:
+
+```go
+
+package resources
+
+var data = map[string][]byte {
+	
+	"svg/next.svg": {
+		 // Data chunks		
+	},
+	
+	"svg/pause.svg": {
+		// Data chunks 
+	},
+	
+	"svg/play.svg": {
+		// Data chunks
+	},
+	
+	"svg/previous.svg": {
+		 // Data chunks
+	},
+	
+	"svg/stop.svg": {
+		 // Data chunks
+	},
+	
+}
+
+func Get(file string) []byte {
+	d, ok := data[file]
+	if !ok {
+		return nil
+	}
+	return d
+}
+```
+
+Resources being accessed the following way
+
+```cpp
+import "resources"
+
+data := resources.Get("svg/play.svg")
 ```
