@@ -65,6 +65,8 @@ brp generate resources -o resources.h -n resources -l cpp
 Will generate the following `resources.h` file:
 
 ```cpp
+#pragma once
+
 #include <iostream>
 #include <vector>
 #include <map>
@@ -82,7 +84,7 @@ namespace resources {
 		};
 	}
 
-	char* get(const char* resourceName) {
+	inline char* get(const char* resourceName) {
 		auto it = data.find(resourceName);
 		return it == data.end() ? nullptr : it->second.data();
 	}
