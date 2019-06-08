@@ -27,6 +27,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	languages string
+	folder    string
+	output    string
+	ns        string
+)
+
 // generateCmd represents the generate command
 var generateCmd = &cobra.Command{
 	Short: "Generate a binary resources source file from a resource folder",
@@ -64,13 +71,6 @@ var generateCmd = &cobra.Command{
 	},
 }
 
-var (
-	languages string
-	folder    string
-	output    string
-	ns        string
-)
-
 func init() {
 	rootCmd.AddCommand(generateCmd)
 
@@ -106,7 +106,6 @@ func generate(dir, lang, output, ns string) error {
 	}
 
 	return nil
-
 }
 
 func dirToNS(dir string) (ns string, err error) {
@@ -122,12 +121,16 @@ func newFile(path, dir string) (*langs.File, error) {
 	}
 	return &langs.File{
 		ID:   fileID(path, dir),
-		Data: format(data),
+		Data: chunk(data),
 	}, nil
 }
 
 func fileID(path, src string) string {
 	return strings.TrimPrefix(strings.TrimPrefix(path, src), "/")
+}
+
+func trimExtension(f string) string {
+	return strings.TrimSuffix(f, filepath.Ext(f))
 }
 
 func addFiles(dir string, source *langs.Source) error {
@@ -145,7 +148,7 @@ func addFiles(dir string, source *langs.Source) error {
 	return err
 }
 
-func format(data []byte) [][]string {
+func chunk(data []byte) [][]string {
 	hex := make([][]string, 0)
 
 	for i := 0; i < len(data); i += 16 {
