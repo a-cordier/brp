@@ -161,7 +161,7 @@ func Get(file string) []byte {
 Resources being accessed the following way
 
 ```cpp
-import "resources"
+import "github.com/<user>/<project>/resources"
 
 data := resources.Get("svg/play.svg")
 ```
