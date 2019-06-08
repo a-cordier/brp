@@ -31,7 +31,7 @@ var rootCmd = &cobra.Command{
 	Short: "brp packages files as binary resources availables in your project",
 	Long: `
     +-------------------------------------------------------------------+
-    | brp packages files as binary resources availables in your project.|
+    | brp packages files as binary resources availables in your project |
     |                                                                   |			
     | Current languages support:                                        |			
     |   - C++                                                           |					
