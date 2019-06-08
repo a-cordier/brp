@@ -20,6 +20,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"regexp"
 	"strings"
 	"text/template"
 
@@ -38,20 +39,28 @@ var (
 var generateCmd = &cobra.Command{
 	Short: "Generate a binary resources source file from a resource folder",
 	Long: `
-	Generate a binary resources source file from a resource folder
+	Generate a binary resources source file from a resource folder:
+
+		- resources will be accessible from the given ns, defaulting to camel cased folder name is missing
+		- resources will be written to the file given by the -o flag, defaulting to stdout if missing
+		- resources will be written for the -l flag language, defaulting to cpp if missing
 	`,
 	Use: "generate [FOLDER]",
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
-			return errors.New(errorF("Missing resource folder argument"))
+			return errors.New("missing resource folder argument")
 		}
 		if len(args) > 1 {
-			return errors.New(errorF("Too many arguments"))
+			return errors.New("too many arguments")
 		}
 		return nil
 	},
 	RunE: func(cmd *cobra.Command, args []string) error {
 		dir := args[0]
+		if ok, err := canRead(dir); !ok {
+			return err
+		}
+
 		ns, err := dirToNS(dir)
 
 		if err != nil {
@@ -108,9 +117,32 @@ func generate(dir, lang, output, ns string) error {
 	return nil
 }
 
+func canRead(dir string) (bool, error) {
+	fi, err := os.Stat(dir)
+	if err != nil {
+		return false, err
+	}
+	if !fi.Mode().IsDir() {
+		return false, errors.New("resource file must be a readable directory")
+	}
+	return true, nil
+}
+
 func dirToNS(dir string) (ns string, err error) {
 	abs, err := filepath.Abs(dir)
-	ns = filepath.Base(abs)
+	ns, err = legalize(filepath.Base(abs))
+	return
+}
+
+func legalize(in string) (out string, err error) {
+	reg, err := regexp.Compile("[^a-zA-Z0-9]+")
+	if err != nil {
+		return
+	}
+	out = reg.ReplaceAllString(in, " ")
+	out = strings.TrimLeft(out, "1234567890")
+	out = strings.Title(out)
+	out = strings.Join(strings.Fields(out), "")
 	return
 }
 
@@ -127,10 +159,6 @@ func newFile(path, dir string) (*langs.File, error) {
 
 func fileID(path, src string) string {
 	return strings.TrimPrefix(strings.TrimPrefix(path, src), "/")
-}
-
-func trimExtension(f string) string {
-	return strings.TrimSuffix(f, filepath.Ext(f))
 }
 
 func addFiles(dir string, source *langs.Source) error {
@@ -170,8 +198,4 @@ func min(x, y int) int {
 		return x
 	}
 	return y
-}
-
-func errorF(msg string) string {
-	return fmt.Sprintln(msg)
 }
