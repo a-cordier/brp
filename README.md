@@ -19,7 +19,7 @@ If you want pure cpp integration with cmake, you may still want to use brp
   
 ## Requirements
 
-brp is packaged as a go module, so you will need golang v1.11+
+brp is packaged as a go module, so you will need golang v1.12+
 
 ## Build from source
 
