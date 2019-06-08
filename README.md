@@ -1,5 +1,7 @@
 # brp
 
+## Binary Resources Packager
+
 brp (binary resources packager) packages files as binary resources availables in your project
 
 brp was originally written in cpp as [bpk](https://github.com/a-cordier/bpk) and intended to be used for cpp projects.
