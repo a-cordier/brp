@@ -1,0 +1,88 @@
+# brp
+
+brp (binary resources packager) packages files as binary resources availables in your project
+
+brp was originally in cpp as [bpk](https://github.com/a-cordier/bpk) and intended to be used for cpp projects.
+
+The current project intends to take advantage of go templates and the [cobra](https://github.com/spf13/cobra) library to:
+
+  - make bpk easily extensible to other languages
+  - provide a more intuitive command line tool by taking advantage of cobra
+
+
+If you want pure cpp integration with cmake, you may still want to use brp
+
+## Requirements
+
+brp is packaged as a go module, so you will need golang v1.11+
+
+## Build from source
+
+```sh
+git clone https://github.com/a-cordier/brp.git
+cd brp
+go build -o brp main.go
+```
+
+## Package your files
+
+brp generate <resource_directory> -o resources.h -l cpp -n resources
+
+  - Ommiting the -o flag will result in writing to stdout
+  - Ommiting the -l flag will result in using cpp language
+  - Ommiting the -n flag will result in using the <resource_directory> name converted to legal PascalCase (no leading numeric - no special character) as a namespace
+
+### Example
+
+Assuming the following resource directory:
+
+```
+resources
+└── svg
+    ├── next.svg
+    ├── pause.svg
+    ├── play.svg
+    ├── previous.svg
+    └── stop.svg
+```
+
+Running
+
+```sh
+brp generate resources -o resources.h -n resources -l cpp
+```
+
+Will generate the following `resources.h` file:
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <map>
+#include <utility>
+
+namespace resources {
+
+	namespace {
+
+		std::map<std::string, std::vector<char> > data = {
+			{ "svg/previous.svg", { /* Data chunks */ } },
+			{ "svg/pause.svg", { /* Data chunks */ } },
+			{ "svg/play.svg", { /* Data chunks */ } },
+			{ "svg/next.svg", { /* Data chunks */ } },
+		};
+	}
+
+	char* getResource(const char* resourceName) {
+		auto it = data.find(resourceName);
+		return it == data.end() ? nullptr : it->second.data();
+	}
+}
+```
+
+Resources being accessed the following way
+
+```cpp
+#include "resources.h"
+
+auto data = resources::getResource("svg/play.svg")
+```
