@@ -1,4 +1,4 @@
-// Copyright © 2019 NAME HERE <EMAIL ADDRESS>
+// Copyright © 2019 Antoine Cordier <com.acordier@gmail.com>
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,10 +22,10 @@ import (
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
-	Short: "Print the version number of brp",
-	Long:  `All software has versions. This is brp's`,
+	Short: "Print version",
+	Long:  `Print the version number brp (Binary Resource Packager)`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Binary Resource Packager v0.0.1")
+		fmt.Println("brp (Binary Resource Packager) v0.0.1")
 	},
 }
 
