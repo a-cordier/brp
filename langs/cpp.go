@@ -24,7 +24,7 @@ namespace {{ .NS }} {
 		};
 	}
 
-	char* get(const char* name) {
+	inline char* get(const char* name) {
 		auto it = data.find(name);
 		return it == data.end() ? nullptr : it->second.data();
 	}
