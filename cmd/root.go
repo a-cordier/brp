@@ -34,7 +34,8 @@ var rootCmd = &cobra.Command{
     | brp packages files as binary resources availables in your project |
     |                                                                   |			
     | Current languages support:                                        |			
-    |   - C++                                                           |					
+	|   - C++                                                           |
+	|   - golang                                                        |					
     |                                                                   |
     |                                                                  	|
     +-------------------------------------------------------------------+

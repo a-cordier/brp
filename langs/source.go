@@ -39,6 +39,8 @@ func NewSource(lang, name, ns string) (*Source, error) {
 	switch lang {
 	case "cpp":
 		return NewCppSource(name, ns), nil
+	case "go":
+		return NewGoSource(name, ns), nil
 	default:
 		return nil, fmt.Errorf("unknown language %s", lang)
 	}

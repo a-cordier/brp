@@ -12,6 +12,11 @@ The current project intends to take advantage of go templates and the [cobra](ht
 
 If you want pure cpp integration with cmake, you may still want to use brp
 
+## Current Language Support
+
+  - C++
+  - golang
+  - 
 ## Requirements
 
 brp is packaged as a go module, so you will need golang v1.11+

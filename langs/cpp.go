@@ -22,13 +22,14 @@ namespace {{ .NS }} {
 		};
 	}
 
-	char* getResource(const char* name) {
+	char* get(const char* name) {
 		auto it = data.find(name);
 		return it == data.end() ? nullptr : it->second.data();
 	}
 }
 `
 
+// NewCppSource returns a binary data cpp source model
 func NewCppSource(name, ns string) *Source {
 	return &Source{
 		name,
