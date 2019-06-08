@@ -9,8 +9,7 @@ brp was originally written in cpp as [bpk](https://github.com/a-cordier/bpk) and
 The current project goal is to take advantage of go templates and the [cobra](https://github.com/spf13/cobra) library to:
 
   - make bpk easily extensible to other languages
-  - provide a more intuitive command line tool by taking advantage of cobra
-
+  - provide a more intuitive command line tool
 
 If you want pure cpp integration with cmake, you may still want to use brp
 
