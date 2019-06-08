@@ -2,7 +2,7 @@
 
 brp (binary resources packager) packages files as binary resources availables in your project
 
-brp was originally in cpp as [bpk](https://github.com/a-cordier/bpk) and intended to be used for cpp projects.
+brp was originally written in cpp as [bpk](https://github.com/a-cordier/bpk) and intended to be used for cpp projects.
 
 The current project intends to take advantage of go templates and the [cobra](https://github.com/spf13/cobra) library to:
 
