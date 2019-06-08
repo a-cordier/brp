@@ -79,7 +79,7 @@ namespace resources {
 		};
 	}
 
-	char* getResource(const char* resourceName) {
+	char* get(const char* resourceName) {
 		auto it = data.find(resourceName);
 		return it == data.end() ? nullptr : it->second.data();
 	}
