@@ -1,6 +1,8 @@
 package langs
 
 const cpp = `
+#pragma once
+
 #include <iostream>
 #include <map>
 #include <utility>
