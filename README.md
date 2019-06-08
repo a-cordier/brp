@@ -91,5 +91,5 @@ Resources being accessed the following way
 ```cpp
 #include "resources.h"
 
-auto data = resources::getResource("svg/play.svg")
+auto data = resources::get("svg/play.svg")
 ```
