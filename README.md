@@ -38,7 +38,7 @@ brp generate <resource_directory> -o resources.h -l cpp -n resources
 
   - Ommiting the -o flag will result in writing to stdout
   - Ommiting the -l flag will result in using cpp language
-  - Ommiting the -n flag will result in using the <resource_directory> name converted to legal PascalCase (no leading numeric - no special character) as a namespace
+  - Ommiting the -n flag will result in using the <resource_directory> name converted to a legal camelCased string (no leading numeric - no special character) as a namespace
 
 ## Examples
 
