@@ -16,8 +16,8 @@ If you want pure cpp integration with cmake, you may still want to use brp
 
 ## Current Language Support
 
-  - C++
-  - golang
+  - [cpp](#cpp)
+  - [golang](#golang)
   
 ## Requirements
 
@@ -41,7 +41,9 @@ brp generate <resource_directory> -o resources.h -l cpp -n resources
   - Ommiting the -l flag will result in using cpp language
   - Ommiting the -n flag will result in using the <resource_directory> name converted to legal PascalCase (no leading numeric - no special character) as a namespace
 
-### C++
+## Examples
+
+### cpp
 
 Assuming the following resource directory:
 
