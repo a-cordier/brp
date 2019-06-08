@@ -40,10 +40,9 @@ var generateCmd = &cobra.Command{
 	Short: "Generate a binary resources source file from a resource folder",
 	Long: `
 	Generate a binary resources source file from a resource folder:
-
 	  - resources will be accessible from the given ns, defaulting to camel cased folder name is missing
 	  - resources will be written to the file given by the -o flag, defaulting to stdout if missing
-      - resources will be written for the -l flag language, defaulting to cpp if missing
+	  - resources will be written for the -l flag language, defaulting to cpp if missing
 
 	Supported languages:
 	  - cpp (--lang cpp)
