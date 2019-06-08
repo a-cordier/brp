@@ -144,8 +144,14 @@ func legalize(in string) (out string, err error) {
 	}
 	out = reg.ReplaceAllString(in, " ")
 	out = strings.TrimLeft(out, "1234567890")
-	out = strings.Title(out)
-	out = strings.Join(strings.Fields(out), "")
+	tokens := strings.Fields(out)
+	if len(tokens) == 1 {
+		tokens[0] = strings.ToLower(tokens[0])
+	}
+	for i, t := range tokens[1:] {
+		tokens[i+1] = strings.Title(t)
+	}
+	out = strings.Join(tokens, "")
 	return
 }
 
