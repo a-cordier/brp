@@ -84,9 +84,14 @@ namespace resources {
 		};
 	}
 
-	inline char* get(const char* resourceName) {
-		auto it = data.find(resourceName);
+	inline char* get(const char* name) {
+		auto it = data.find(name);
 		return it == data.end() ? nullptr : it->second.data();
+	}
+
+	inline std::vector::size_type sizeof(const char* name) {
+		auto it = data.find(name);
+		return it == data.end() ? 0 : it->second.size();
 	}
 }
 ```
