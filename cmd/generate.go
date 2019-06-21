@@ -133,11 +133,11 @@ func canRead(dir string) (bool, error) {
 
 func dirToNS(dir string) (ns string, err error) {
 	abs, err := filepath.Abs(dir)
-	ns, err = legalize(filepath.Base(abs))
+	ns, err = camelCase(filepath.Base(abs))
 	return
 }
 
-func legalize(in string) (out string, err error) {
+func camelCase(in string) (out string, err error) {
 	reg, err := regexp.Compile("[^a-zA-Z0-9]+")
 	if err != nil {
 		return
